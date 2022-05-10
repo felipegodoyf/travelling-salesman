@@ -9,7 +9,6 @@ public class Salesman : MonoBehaviour
     [SerializeField] List<Transform> _pointsOriginal = new List<Transform>();
     [SerializeField] private List<Transform> _route = new List<Transform>();
     [SerializeField] Transform _currentTarget;
-    bool done = false;
     [SerializeField] private GameObject _pointPrefab;
     [SerializeField] private int _pointAmount;
     [SerializeField] private Vector2 _positionMin;
@@ -33,7 +32,6 @@ public class Salesman : MonoBehaviour
 
     void Update()
     {
-        if (done) return;
         if (startupRunning) return;
         transform.LookAt(_currentTarget);
         if (Vector3.Distance(transform.position, _currentTarget.position) < _reachDistanceThreshold)
@@ -45,7 +43,6 @@ public class Salesman : MonoBehaviour
             }
             else
             {
-                // done = true;
                 ResetPoints();
                 InstantiatePoints();
                 StartCoroutine(TeleportToRandom());
@@ -125,6 +122,12 @@ public class Salesman : MonoBehaviour
             route.Add(closest);
             _points.Remove(closest);
         }
+
+        Transform last = Instantiate(_pointPrefab, first.position, first.rotation).transform;
+        last.gameObject.name = "Point (LAST)";
+        last.GetComponent<MeshRenderer>().material = this.gameObject.GetComponent<MeshRenderer>().material;
+        _pointsOriginal.Add(last);
+        route.Add(last);
 
         return route;
     }

@@ -672,7 +672,7 @@ MonoBehaviour:
   _route: []
   _currentTarget: {fileID: 0}
   _pointPrefab: {fileID: 5861577577730277714, guid: deaecce7d328f5944a30b0a703aca716, type: 3}
-  _pointAmount: 40
+  _pointAmount: 35
   _positionMin: {x: -25, y: -25}
   _positionMax: {x: 25, y: 25}
   _reachDistanceThreshold: 0.5

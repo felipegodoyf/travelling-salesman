@@ -34,23 +34,6 @@ public class Salesman : MonoBehaviour
     {
         if (startupRunning) return;
         transform.LookAt(_currentTarget);
-        if (Vector3.Distance(transform.position, _currentTarget.position) < _reachDistanceThreshold)
-        {
-            _currentTarget.gameObject.GetComponent<MeshRenderer>().material = this.gameObject.GetComponent<MeshRenderer>().material;
-            if (_route.IndexOf(_currentTarget) != _route.Count - 1)
-            {
-                _currentTarget = _route[_route.IndexOf(_currentTarget) + 1];
-            }
-            else
-            {
-                ResetPoints();
-                InstantiatePoints();
-                StartCoroutine(TeleportToRandom());
-                _route = CalculateRoute();
-                _currentTarget = _route[0];
-            }
-        }
-
         transform.Translate(Vector3.forward * _speed * Time.deltaTime, Space.Self);
     }
 
@@ -148,5 +131,25 @@ public class Salesman : MonoBehaviour
         }
 
         return closest;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform == _currentTarget)
+        {
+            _currentTarget.gameObject.GetComponent<MeshRenderer>().material = this.gameObject.GetComponent<MeshRenderer>().material;
+            if (_route.IndexOf(_currentTarget) != _route.Count - 1)
+            {
+                _currentTarget = _route[_route.IndexOf(_currentTarget) + 1];
+            }
+            else
+            {
+                ResetPoints();
+                InstantiatePoints();
+                StartCoroutine(TeleportToRandom());
+                _route = CalculateRoute();
+                _currentTarget = _route[0];
+            }
+        }
     }
 }

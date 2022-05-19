@@ -133,7 +133,7 @@ public class Salesman : MonoBehaviour
         return closest;
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.transform == _currentTarget)
         {

@@ -33,6 +33,7 @@ public class Salesman : MonoBehaviour
     void Update()
     {
         if (startupRunning) return;
+        if (restarting) return;
         transform.LookAt(_currentTarget);
         transform.Translate(Vector3.forward * _speed * Time.deltaTime, Space.Self);
     }
@@ -144,12 +145,24 @@ public class Salesman : MonoBehaviour
             }
             else
             {
-                ResetPoints();
-                InstantiatePoints();
-                StartCoroutine(TeleportToRandom());
-                _route = CalculateRoute();
-                _currentTarget = _route[0];
+                if (!restarting)
+                {
+                    StartCoroutine(Restart());
+                }
             }
         }
+    }
+
+    bool restarting = false;
+    IEnumerator Restart()
+    {
+        restarting = true;
+        yield return new WaitForSeconds(0.5f);
+        ResetPoints();
+        InstantiatePoints();
+        StartCoroutine(TeleportToRandom());
+        _route = CalculateRoute();
+        _currentTarget = _route[0];
+        restarting = false;
     }
 }

@@ -10,7 +10,7 @@ A salesman needs to visit several cities, returning to the point of origin at th
 There are several solutions, each with its pros and cons.
 I chose the <b>Nearest Neighbor</b> solution, which uses the distance between cities as a parameter to define the next destinations.
 
-This project implements the solution visually, using the <b>Unity Engine</b>.
+This project implements the solution visually, using the <b>Unity Engine</b>:
 
 <table style="border: 0;">
     <tr>
